@@ -51,4 +51,64 @@ But in the above example we have three letters, this is because the first letter
 
 Anyway, there are lots of differents forms/combinations to modify the permissions on a file or directory, so don't be shy and just google it.
 
+## Linux TimeZones Setting
+
+Let's imagine that you are a very wealthy and you are on holidays and travelling with your computer around the world, you might want to modify the timezone of your system to the timezone of the place you are right now. How we would go about it?
+
+Well, we should first check our current time zone, to do this we run the timedatectl command.
+
+```
+$timedatectl
+```
+We'll get a similar output to the following:
+
+```
+               Local time: Wed 2020-05-06 19:33:20 UTC
+           Universal time: Wed 2020-05-06 19:33:20 UTC
+                 RTC time: Wed 2020-05-06 19:33:22    
+                Time zone: UTC (UTC, +0000)           
+System clock synchronized: yes                         
+              NTP service: active                      
+          RTC in local TZ: no  
+```
+
+To modify the timezones, we should also know the available time zones that we can set. We can do this by executing timedatectl with the list-timezones option:
+
+```
+$timedatectl list-timezones
+```
+We'll get something like this;
+
+```
+...
+America/Nipigon
+America/Nome
+America/Noronha
+...
+```
+
+Finally, once we have decided ourself on which timezone we want to set, we must run the following command:
+
+```
+sudo timedatectl set-timezone your_time_zone
+```
+For example, we could change the system's timezone to America/Noronha;
+
+```
+sudo timedatectl set-timezone America/Noronha
+```
+
+We could that our setting has been modified by running the timedatectl command again.
+
+## Create a Linux User with non-interactive shell
+
+
+
+## Linux SSH Authentication
+
+
+
+## Linux Run Levels
+
+
 
