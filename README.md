@@ -102,7 +102,61 @@ We could that our setting has been modified by running the timedatectl command a
 
 ## Create a Linux User with non-interactive shell
 
+What's the meaning of interactive and login when we talk about shells?
 
+By interactive/non interactive shells, we refer to the exchange between the user and the shell. The user types commands into the terminal (input), and the shell prints an output to the screen.
+
+On the other hand, by login/non-login shells, we refer to the event when a user access a system providing its username and password.
+
+At the same time, both interactive and non-interactive can be either login or non-login.
+
+When is an interactive login shell use?
+
+Well, let us say that a group of user that belong to a same area/department need a particular variable set in their sessions, so we when a user that belongs to this group logs into the system, there are some configurations that adjust to its need.
+
+Once a user has logged into a system, and opens other shells, we refer to these as interactive non-login shells.
+
+Apart from these, we also have non-interactive shells. These do not require any kind of human interaction, or we should say that the suer is unable to type commands or it is not asked to do it. And in the case of having some kind of output, this one is written to a log.
+
+A very common case, that probably most of us have once used, are a non-interactive non-login shells. These are automated scripts such as cronjobs that mostly are used for maintenance and repetitive tasks.
+
+Going back to our main goal, of creating a user with non-interactive shell, we should first of all check if the user that we are asked to create does exist.
+
+For this purpose, we simple run the id command:
+
+```
+id $username
+``` 
+
+After checking this, we can proceed to create our user with a non-interactive shell, we'll do this by:
+
+```
+adduser $username -s /sbin/nologin
+```
+
+To verify that our user has been created we can run once more, our previously commamd:
+
+```
+id $username
+```
+
+```
+cat /etc/passwd | grep $username 
+```
+
+The /etc/passwd stores user accounts information, we can take a look to an output of this command:
+
+```
+crazydog:x:502:502::/home/crazydog:/bin/bash
+```
+
+Here crazydog has been assigned a UID of 502. It also tell us that the home directory is set to /home/crazydog and that the login shellis set to /bin/bash. The 'x' indicates that shadow passwords are used and that the hashed password is stored in /etc/shadow.
+
+A little comment here, for when we want to get identification data of our operating system, such as information about the distribution, we can take a look to the /etc/os-release file. This one is part of the systemd package, therefore it should be present on all systems running systemd.
+
+```
+cat /etc/os-release
+```
 
 ## Linux SSH Authentication
 
