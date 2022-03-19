@@ -160,6 +160,33 @@ cat /etc/os-release
 
 ## Linux SSH Authentication
 
+Let's say that we are using our machine and we frequently log into another system. This process involves having to insert the password each time we want to log into these systems.
+
+As a way of facilitating this, we can use ssh-keygen to generate a public/private authentication key pair. This we'll allow us to log into remote servers without supplying a password. Here We should make an observation that might be important, this if a generate a key pairs as the root user, only the root user will be able to use them.
+
+```
+ssh-keygen -t rsa
+```
+
+Here with the -t flag we are telling the ssh-keygen command the type of key we want to create. Some of the possible are "rsa1", "dsa", "ecdsa" or "rsa".
+
+This command has a offers a lot of functionalities so you are more than welcomed to google them.
+
+Ok, we are happy, or maybe not, but we have our key. Now what?
+
+Well, we should have a way of providing the key to the remote servers we wish to log in.
+
+This is when the ssh-copy-id command comes into play. ssh-copy-id installs an SSH key as an authorized key in the remote servers.
+
+```
+ssh-copy-id -i pathToTheKey user@ipRemoteServer
+```
+
+This way we should be able to log into our remote server without being asked to provide a password. The -i flag is used to indicate the key we want to install on the remote server. Another remark is that only the public key is copied to the server. The private key should never be copied to another system.
+
+The -i indicates the identity file to be used. If we don't specify this argument, all the files in the ~/.ssh/ directory with the matching pattern *.pub will be sent.
+
+This command ssh-copy-id can be quite dangerous, so use it with caution.
 
 
 ## Linux Run Levels
