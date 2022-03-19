@@ -191,5 +191,55 @@ This command ssh-copy-id can be quite dangerous, so use it with caution.
 
 ## Linux Run Levels
 
+At first Run Levels can be difficult to grasp but luckily, they come in numbers.
 
+A run level is a state of init and the whole system that establishes what system services are operating.
+
+When our Linux system boots, the init process is started. This one is responsible to start other start scripts such as those related to the network, or the graphical interface,
+
+What init does is to find the default runlevel of the system in order to execute the corresponding start scripts associated with that default run level.
+
+The run levels can vary depending on the operating system, but the standard Linux kernel supports these seven runlevels:
+
+* 0 - System Halt, i.e., the system can be safely powered off with no activity.
+* 1 - Single user mode.
+* 2 - Multiple user mode with no Network File System.
+* 3 - Multiple user mode under the command line interface and not under the graphical user interface.
+* 4 - User-definable
+* 5 - Multiple user mode under GUI and this is the standard runlevel for most of the Linux based systems.
+* 6 - Reboot which is used to restart the system.
+
+A way to check the default state that our system reaches once if finishes booting is the **systemctl get-default**
+
+```
+systemctl get-default
+```
+
+This command would return us a target. Where does this data come from? Basically, there is a symbolic link called default.target inside the /etc/systemd/system that points to the indicated target.
+
+Following, we can see that /etc/systemd/system/default.target is a soft link to /lib/systemd/system/multi-user.target :
+
+```
+[root@server ~]# systemctl get-default
+multi-user.target
+[root@server ~]# ls -l /etc/systemd/system/default.target
+lrwxrwxrwx 1 root root 37 Jul 10 2020 /etc/systemd/system/default.target -> /lib/systemd/system/multi-user.target
+[root@server ~]#
+```
+
+If we were to list the current loaded target units, with an active and inactive status, we would use the **systemctl list-units --type=target --all**
+
+
+```
+systemctl list-units --type=target --all
+
+```
+
+A way to modify the default target is by using the systemctl set-default command. For example, we can change to the graphical, which is use to start a graphical session:
+
+```
+systemctl set-default graphical.target
+```
+
+This procedure does not affect the current system immediately, It would take effect the next timw we boot our system.
 
