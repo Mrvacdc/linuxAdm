@@ -1,5 +1,7 @@
 # NOTES ON MY JOURNEY TO BE A LINUX ADMIN
 
+This set of notes is mostly based or guided by the task indicated by the kode kloud platform where you can have simulated real-life hands-on practice as if you were working for a company as a sysadmin/devops.
+
 ## Linux File Permissions
 
 There multiple way to change the permissions on a file, but all of them include using the chmod command. This command let us change the permissions not only on a file but also on a directory.
@@ -275,5 +277,41 @@ Once again, if we run the *sestatus* command, we should get a status of disabled
 
 ## Linux Services
 
+Let's say that the development team has shared with us that the new application release has some dependencias on back end. As a consequence of this, there are some packages/services that need to be installed on all app servers.
+
+Well, in this case the package that we are going to install is the squid package. We also have to make sure that it is enabled to start during boot.
+
+What's the squid package? I'll give the first definition that it appears on google:
+
+```
+Squid is a full-featured web proxy cache server application which provides proxy and cache services for Hyper Text Transport Protocol (HTTP), File Transfer Protocol (FTP) and other popular network protocols.
+```
+Having said this, we'll proceed to the installation. To do this we'll execute the next command (remember that this server is a CentOS):
+
+```
+sudo yum install -y squid
+```
+
+Next, we'll start the squid service:
+
+```
+sudo systemctl start squid
+```
+
+And for this service to start when booting we have to enable it:
+
+```
+sudo systemctl enable squid
+```
+To verify/check the status, we run the next command:
+
+```
+sudo systemctl status squid
+```
+
+Here we should verify, that in the line that starts with *Loaded*, it says enabled, and in the line that starts with *Active*, it says activer (running).
+
+See you in the next entry.
 
 ## Linux String Substitute
+
