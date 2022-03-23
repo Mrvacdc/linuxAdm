@@ -243,3 +243,37 @@ systemctl set-default graphical.target
 
 This procedure does not affect the current system immediately, It would take effect the next timw we boot our system.
 
+## SELinux installation
+
+Let us say that we are in a situation where we are asked to install SELinux as an extra security layer, luckly for us, we don't have to configure it, so we have to its status should be disabled.
+
+But for some of you, just like myself, it might be the first time you here talking about SELinux. What is it?
+
+SELinux, or Security-Enhanced Linux is a security architecture integrated into the kernel using the Linux Security Modules (LSM).
+
+It provides a flexible Mandatory Access Control (MAC) system built into the Linux kernel. Under standard Linux Discretionary Access Control (DAC), an application or process running as a user (UID or SUID) has the user's permissions to objects such as files, sockets, and other processes. Running a MAC kernel protects the system from malicious or flawed applications that can damage or destroy the system.
+
+It's an interesting topic, so I hope to make another entry in the near future, but now let's do what we've been told to do.
+
+
+We'll, it is a very straightforward process, if we are in red hat based system, like centOS, we'll just run the following command:
+
+```
+yum -y install selinux*
+```
+
+Then, we can check the existing SELinux status, by executing the *sestatus* command:
+
+```
+sestatus
+```
+
+As we want it to be disabled and to be this way even after the server reboots, we have to modify the /etc/selinux/config and change SELINUX value to disabled.
+
+Once again, if we run the *sestatus* command, we should get a status of disabled.
+
+
+## Linux Services
+
+
+## Linux String Substitute
